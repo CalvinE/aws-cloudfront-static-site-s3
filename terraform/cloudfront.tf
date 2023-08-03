@@ -14,14 +14,7 @@ resource "aws_cloudfront_distribution" "site" {
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.site.cloudfront_access_identity_path
     }
-    # Not needed because we are accessing the bucket directly now and not via a website config
-    # custom_origin_config {
-    #   http_port              = 80
-    #   https_port             = 443
-    #   origin_protocol_policy = "http-only"
-    #   # feel like I should remove TLSv1...pi
-    #   origin_ssl_protocols = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-    # }
+
   }
 
   enabled             = true
@@ -29,8 +22,6 @@ resource "aws_cloudfront_distribution" "site" {
   default_root_object = "index.html"
 
   aliases = ["${var.domain_name}"]
-
-  #   aliases = ["www.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
@@ -44,8 +35,6 @@ resource "aws_cloudfront_distribution" "site" {
         forward = "all"
         # whitelisted_names = [  ]
       }
-      # Not needed because we are accessing the bucket directly now and not via a website config
-      # headers = ["*"]
       headers = []
     }
 
