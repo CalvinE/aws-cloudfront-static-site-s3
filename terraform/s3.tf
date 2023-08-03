@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "site" {
-  # TODO: over thinging here, but could this cause a collision? Should we use bucket_prefix?
+  # TODO: over thinking here, but could this cause a collision? Should we use bucket_prefix?
   bucket = var.domain_name
 }
 
