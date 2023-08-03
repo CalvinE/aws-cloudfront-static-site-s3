@@ -4,12 +4,14 @@ import { resolve, join } from "path";
 import { readFileSync, readdirSync, lstatSync } from "fs";
 import mime from "mime-types";
 
+
+// TODO: fill these in! or get terraform state and populate them...
 // The Role ARN for site deployment as output by terraform
-const roleARN = "arn:aws:iam::290491194943:role/blog.cechols.com-site-deployer-20230801230759953700000001";
+const roleARN = "";
 // The bucket name the site is deployed into as output by terraform
-const bucket = "blog.cechols.com";
-// The region used to create the resources in terraform. This would be the same as the value of the terraform variable region.
-const region = "us-east-2";
+const bucket = "";
+// The region used to create the resources in terraform. This would be the same as the value of the terraform output region.
+const region = "";
 // This assumes the CWD is the parent directory of the directory this script is located in...
 const siteLocation = resolve("dist");
 
@@ -139,4 +141,3 @@ function enumerateDir(rootDir, additionalPathParts = []) {
     }
     console.log("deployment complete", filesToUpload.length);
 })();
-

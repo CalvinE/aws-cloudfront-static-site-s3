@@ -8,8 +8,8 @@ resource "aws_acm_certificate" "site" {
   }
 }
 
-# resource "aws_acm_certificate_validation" "site" {
-#   provider                = aws.acm_provider
-#   certificate_arn         = aws_acm_certificate.site.arn
-#   validation_record_fqdns = [aws_route53_record.site.fqdn]
-# }
+resource "aws_acm_certificate_validation" "site" {
+  provider                = aws.acm_provider
+  certificate_arn         = aws_acm_certificate.site.arn
+  validation_record_fqdns = [aws_route53_record.site.fqdn]
+}
