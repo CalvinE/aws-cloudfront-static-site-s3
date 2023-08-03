@@ -57,23 +57,6 @@ data "aws_iam_policy_document" "site_policy" {
   }
 }
 
-
-# Not needed because we are accessing the bucket directly now and not via a website config
-# {
-# 	"Sid": "PublicReadGetObject",
-# 	"Effect": "Allow",
-# 	"Principal": {
-# 		"Service": "cloudfront.amazonaws.com"
-# 	},
-# 	"Action": "s3:GetObject",
-# 	"Resource": "arn:aws:s3:::blog.cechols.com/*",
-# 	"Condition": {
-# 		"StringEquals": {
-# 			"AWS:SourceArn": "arn:aws:cloudfront::290491194943:distribution/ET6FIANIVYUAT"
-# 		}
-# 	}
-# }
-
 resource "aws_s3_bucket_policy" "site" {
   bucket = aws_s3_bucket.site.id
   policy = data.aws_iam_policy_document.site_policy.json
@@ -83,27 +66,6 @@ resource "aws_s3_bucket_policy" "site" {
     aws_s3_bucket_ownership_controls.site,
   ]
 }
-
-
-# Not needed because we are accessing the bucket directly now and not via a website config
-# resource "aws_s3_bucket_cors_configuration" "site" {
-#   bucket = aws_s3_bucket.site.id
-#   // Will want more rules as more functionality is developed?
-#   cors_rule {
-#     allowed_methods = ["GET"]
-#     allowed_origins = ["http://${var.domain_name}"]
-#   }
-# }
-
-
-# Not needed because we are accessing the bucket directly now and not via a website config
-# resource "aws_s3_bucket_website_configuration" "site" {
-#   bucket = aws_s3_bucket.site.id
-#   index_document {
-#     suffix = "index.html"
-#   }
-# }
-
 
 ### Site logs bucket
 
@@ -125,25 +87,3 @@ resource "aws_s3_bucket_acl" "logs" {
 
   depends_on = [aws_s3_bucket_ownership_controls.logs]
 }
-
-# data "aws_iam_policy_document" "logs" {
-#   statement {
-#     principals {
-#       type = "AWS"
-#       identifiers = [ aws_cloudfront_distribution.site.arn ]
-#     }
-#     effect = "Allow"
-#     actions = [ "s3:PutObject" ]
-#     resources = [ "${aws_s3_bucket.logs.arn}/*" ]
-#   }
-# }
-
-# resource "aws_s3_bucket_policy" "logs" {
-#   bucket = aws_s3_bucket.logs.id
-#   policy = data.aws_iam_policy_document.logs.json
-
-#     depends_on = [
-#     # aws_s3_bucket_public_access_block.logs,
-#     aws_s3_bucket_ownership_controls.logs,
-#   ]
-# }
