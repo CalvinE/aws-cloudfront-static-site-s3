@@ -2,6 +2,10 @@ output "domain_name" {
   value = var.domain_name
 }
 
+output "region" {
+  value = var.region
+}
+
 output "bucket_arn" {
   value = aws_s3_bucket.site.arn
 }
