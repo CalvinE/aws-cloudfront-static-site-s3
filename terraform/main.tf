@@ -28,4 +28,3 @@ provider "aws" {
   }
 }
 
-# TODO: have bucket only readable via cloudfront in bucket ACL?
